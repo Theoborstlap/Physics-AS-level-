@@ -126,8 +126,11 @@ def sanitize(html):
 # Cover page
 # ---------------------------------------------------------------------------
 def cover(kind):
+    n_theory = len(theory)
+    n_mcq = len(mcq)
+    total = n_theory + n_mcq
     sub = "Question Paper" if kind == "Q" else "Detailed Answers &amp; Worked Solutions"
-    extra = ("Diagrams included &middot; 150 structured (theory) + 100 multiple-choice"
+    extra = (f"Diagrams included &middot; {n_theory} structured (theory) + {n_mcq} multiple-choice"
              if kind == "Q" else
              "Full method, working and mark-by-mark reasoning for every question")
     return f"""
@@ -135,7 +138,7 @@ def cover(kind):
       <h1 class="title">Cambridge International AS Level</h1>
       <h1 class="title">Physics (9702)</h1>
       <hr class="rule">
-      <div class="subtitle"><b>250 Extreme-Difficulty Practice Questions</b></div>
+      <div class="subtitle"><b>{total} Extreme-Difficulty Practice Questions</b></div>
       <div class="subtitle">{sub}</div>
       <div class="meta">
         <span class="badge">AS syllabus 2025-2027</span>
@@ -171,8 +174,8 @@ def render_questions():
     parts.append(REFERENCE_HTML)
 
     # Section A: theory
-    parts.append("<div class='section-banner'>SECTION A &mdash; Structured (theory) questions "
-                 "&nbsp;[Q1&ndash;Q150]</div>")
+    parts.append(f"<div class='section-banner'>SECTION A &mdash; Structured (theory) questions "
+                 f"&nbsp;[Q1&ndash;Q{len(theory)}]</div>")
     n = 0
     first = True
     for topic, items in _group_by_topic(theory):
@@ -191,8 +194,8 @@ def render_questions():
     parts.append(f"<p class='note'>End of Section A &mdash; {n} structured questions.</p>")
 
     # Section B: MCQ
-    parts.append("<div class='section-banner'>SECTION B &mdash; Multiple choice "
-                 "&nbsp;[Q1&ndash;Q100] &nbsp;<span class='small'>(choose one: A, B, C or D)</span></div>")
+    parts.append(f"<div class='section-banner'>SECTION B &mdash; Multiple choice "
+                 f"&nbsp;[Q1&ndash;Q{len(mcq)}] &nbsp;<span class='small'>(choose one: A, B, C or D)</span></div>")
     m = 0
     first = True
     for topic, items in _group_by_topic(mcq):
@@ -220,8 +223,8 @@ def render_answers():
     parts = [f"<!doctype html><html><head><meta charset='utf-8'><style>{CSS}</style></head><body>"]
     parts.append(cover("A"))
 
-    parts.append("<div class='section-banner'>SECTION A &mdash; Structured (theory) answers "
-                 "&nbsp;[Q1&ndash;Q150]</div>")
+    parts.append(f"<div class='section-banner'>SECTION A &mdash; Structured (theory) answers "
+                 f"&nbsp;[Q1&ndash;Q{len(theory)}]</div>")
     n = 0
     first = True
     for topic, items in _group_by_topic(theory):
@@ -239,8 +242,8 @@ def render_answers():
             parts.append(f"<div class='ans'><span class='lead'>Answer.</span> {it['ans']}</div>")
             parts.append("</div>")
 
-    parts.append("<div class='section-banner'>SECTION B &mdash; Multiple choice answers "
-                 "&nbsp;[Q1&ndash;Q100]</div>")
+    parts.append(f"<div class='section-banner'>SECTION B &mdash; Multiple choice answers "
+                 f"&nbsp;[Q1&ndash;Q{len(mcq)}]</div>")
     m = 0
     first = True
     for topic, items in _group_by_topic(mcq):

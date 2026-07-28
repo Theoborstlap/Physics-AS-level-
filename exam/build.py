@@ -9,7 +9,9 @@ import reference            # noqa: F401  (defines REFERENCE_HTML)
 
 # Importing these modules appends questions to engine.theory / engine.mcq
 import theory_01_10   # noqa
+import theory_extra   # noqa
 import mcq_all        # noqa
+import mcq_extra      # noqa
 
 CHROME = "/opt/playwright/chromium-1232/chrome-linux64/chrome"
 
