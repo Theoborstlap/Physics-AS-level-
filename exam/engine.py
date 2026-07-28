@@ -23,6 +23,7 @@ MCQ question (dict):
 
 theory = []   # populated by theory_*.py
 mcq = []      # populated by mcq_*.py
+PACK_LABEL = ""  # optional badge text, e.g. "Pack 2"; set by a build script
 
 # ---------------------------------------------------------------------------
 # Shared CSS
@@ -141,6 +142,7 @@ def cover(kind):
       <div class="subtitle"><b>{total} Extreme-Difficulty Practice Questions</b></div>
       <div class="subtitle">{sub}</div>
       <div class="meta">
+        {('<span class="badge">' + PACK_LABEL + '</span>') if PACK_LABEL else ''}
         <span class="badge">AS syllabus 2025-2027</span>
         <span class="badge">Target series: Oct / Nov 2026</span>
         <span class="badge">Topics 1&ndash;11</span>
